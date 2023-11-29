@@ -4,6 +4,7 @@ uses
 	PtyProcess;
 
 file
+	UppTerm.iml,
 	main.cpp;
 
 mainconfig

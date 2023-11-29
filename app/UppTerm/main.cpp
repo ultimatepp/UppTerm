@@ -9,10 +9,15 @@ const char *tshell = "SHELL";
 const char *tshell = "ComSpec"; // Alternatively you can use powershell...
 #endif
 
+#define IMAGECLASS UppTermImg
+#define IMAGEFILE <UppTerm/UppTerm.iml>
+#include <Draw/iml.h>
+
 class UppTerm final : TopWindow {
 public:
 	UppTerm() {
 		Title(m_title_prefix);
+		Icon(UppTermImg::Icon());
 		SetRect(m_terminal.GetStdSize());
 		Sizeable().Zoomable().CenterScreen().Add(m_terminal.SizePos());
 		
