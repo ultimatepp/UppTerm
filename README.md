@@ -17,10 +17,10 @@ The first command will download a;; dependnencies from the internet. The second 
 ## Running
 To run the application execute following command from the repository root directory:
 ```
-build/UppTerm
+build/upp-term
 ```
 
 You can also specify the script to execute by the terminal application
 ```
-build/UppTerm "/bin/bash /home/klugier/test.sh"
+build/upp-term "/bin/bash /home/klugier/test.sh"
 ```

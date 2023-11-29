@@ -3,6 +3,7 @@
 build:
 	mkdir -p build
 	3p/umk/umk app/,3p/uppsrc UppTerm 3p/umk/CLANG.bm -brvh +GUI,SHARED build/UppTerm
+	mv build/UppTerm build/upp-term
 	
 download:
 	mkdir -p 3p/download
@@ -12,7 +13,7 @@ download:
 	tar -xf 3p/download/umk-17045-linux-x86-64.tar.gz -C 3p
 
 run:
-	build/UppTerm
+	build/upp-term
 
 clean:
 	rm -rf build
