@@ -21,6 +21,7 @@ public:
 		SetRect(m_terminal.GetStdSize());
 		Sizeable().Zoomable().CenterScreen().Add(m_terminal.SizePos());
 		
+		m_terminal.WindowReports();
 		m_terminal.WhenTitle = [=](String s) { Title(m_title_prefix + " :: " + s); };
 	}
 	
@@ -43,11 +44,13 @@ public:
 		
 		OpenMain();
 		
-		while(m_pty.IsRunning()) {
+		for(;;) {
 			Ctrl::ProcessEvents();
 			String s = m_pty.Get();
 			int l = s.GetLength();
 			m_terminal.WriteUtf8(s);
+			if(!m_pty.IsRunning())
+				break;
 			Sleep(l >= 1024 ? 1024 * 10 / l : 10);
 		}
 		m_pty.Kill();
