@@ -31,7 +31,7 @@ public:
 		}
 	}
 	
-	void Run(const String& cmd)
+	int Run(const String& cmd)
 	{
 		m_terminal.WhenOutput = [&](String s) {
 			m_pty.Write(s);
@@ -39,7 +39,7 @@ public:
 		m_terminal.WhenResize = [&]() {
 			m_pty.SetSize(m_terminal.GetPageSize());
 		};
-
+		
 		m_pty.Start(cmd.IsEmpty() ? GetEnv(tshell) : cmd, Environment(), GetHomeDirectory());
 		
 		OpenMain();
@@ -53,7 +53,9 @@ public:
 				break;
 			Sleep(l >= 1024 ? 1024 * 10 / l : 10);
 		}
+		const auto exit_code = m_pty.GetExitCode();
 		m_pty.Kill();
+		return exit_code;
 	}
 
 private:
@@ -74,5 +76,5 @@ GUI_APP_MAIN
 		cmd.TrimEnd("\"");
 	}
 	
-	UppTerm().Run(cmd);
+	SetExitCode(UppTerm().Run(cmd));
 }
