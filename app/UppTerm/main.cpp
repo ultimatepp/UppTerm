@@ -39,7 +39,7 @@ public:
 			String s = m_pty.Get();
 			int l = s.GetLength();
 			m_terminal.WriteUtf8(s);
-			if(!m_pty.IsRunning())
+			if(!m_pty.IsRunning() || !IsOpen())
 				break;
 			Sleep(l >= 1024 ? 1024 * 10 / l : 10);
 		}
