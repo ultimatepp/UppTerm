@@ -7,10 +7,10 @@ build:
 	
 download:
 	mkdir -p 3p/download
-	wget https://github.com/ultimatepp/ultimatepp/releases/download/2023.2/uppsrc-17045.tar.gz -P 3p/download
-	wget https://github.com/ultimatepp/ultimatepp/releases/download/2023.2/umk-17045-linux-x86-64.tar.gz -P 3p/download
-	tar -xf 3p/download/uppsrc-17045.tar.gz -C 3p
-	tar -xf 3p/download/umk-17045-linux-x86-64.tar.gz -C 3p
+	wget https://github.com/ultimatepp/ultimatepp/releases/download/2024.1/uppsrc-17458.tar.gz -P 3p/download
+	wget https://github.com/ultimatepp/ultimatepp/releases/download/2024.1/umk-17458-linux-x86-64.tar.gz -P 3p/download
+	tar -xf 3p/download/uppsrc-17458.tar.gz -C 3p
+	tar -xf 3p/download/umk-17458-linux-x86-64.tar.gz -C 3p
 
 run:
 	build/upp-term
