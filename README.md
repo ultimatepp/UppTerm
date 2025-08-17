@@ -1,9 +1,11 @@
 # UppTerm
 
 ## Introduction
-UppTerm is simple terminal application written in U++ framework. It is based on [TerminalCtrl](https://github.com/ismail-yilmaz/Terminal) written and maintained by [İsmail Yılmaz](https://github.com/ismail-yilmaz/)
+UppTerm is simple terminal application written in U++ framework. It is based on [TerminalCtrl](https://github.com/ismail-yilmaz/Terminal) UppHub package written and maintained by [İsmail Yılmaz](https://github.com/ismail-yilmaz/).
 
 The main feature of this repository is that it doesn't require U++ framework installation. You can use the make command and the whole application will be built automaticaly. All dependencies, including UMK, will be downloaded from the internet. So, if you are looking for the example of using U++ framework without TheIDE it is a good repository to study the code and build architecture.
+
+UppTerm is a supportive component within the U++ Flatpak distribution. It launches the first time a user runs the Flatpak, downloading system-wide dependencies required for compiling framework applications. To learn more, you can visit the U++ Flatpak recipe [repository](https://github.com/flathub/org.ultimatepp.TheIDE).
 
 ## Building 
 To build this project you do not need to install U++ framework just use following make commands
@@ -24,3 +26,10 @@ You can also specify the script to execute by the terminal application
 ```
 build/upp-term "/bin/bash /home/klugier/test.sh"
 ```
+
+## Cleaning
+To remove all downloaded dependencies and build files, run the following command:
+```
+make clean
+```
+
