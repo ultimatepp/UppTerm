@@ -33,17 +33,13 @@ public:
 		m_pty.Start(cmd.IsEmpty() ? GetEnv(tshell) : cmd, Environment(), GetHomeDirectory());
 		
 		OpenMain();
-		
-		for(;;) {
-			Ctrl::ProcessEvents();
-			String s = m_pty.Get();
-			int l = s.GetLength();
-			m_terminal.WriteUtf8(s);
-			if(!m_pty.IsRunning() || !IsOpen())
-				break;
-			Sleep(l >= 1024 ? 1024 * 10 / l : 10);
+		PtyWaitEvent we;
+		we.Add(m_pty, WAIT_READ | WAIT_IS_EXCEPTION);
+		while(IsOpen() && m_pty.IsRunning()) {
+			if(we.Wait(10))
+				m_terminal.WriteUtf8(m_pty.Get());
+			ProcessEvents();
 		}
-		
 		return m_pty.GetExitCode();
 	}
 
