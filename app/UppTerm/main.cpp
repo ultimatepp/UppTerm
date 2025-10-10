@@ -46,7 +46,7 @@ public:
 private:
 	TerminalCtrl m_terminal;
 	PtyProcess m_pty;
-	
+
 	const String m_title_prefix = "UppTerm";
 };
 
@@ -60,7 +60,6 @@ GUI_APP_MAIN
 		cmd.TrimStart("\"");
 		cmd.TrimEnd("\"");
 	}
-	
+
 	SetExitCode(UppTerm().Run(cmd));
 }
-
