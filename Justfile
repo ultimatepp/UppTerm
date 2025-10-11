@@ -10,9 +10,9 @@ default: build
 
 download:
     #!/usr/bin/env sh
-    if [ "{{os_family()}}" == "unix" ]; then
+    if [ "{{os_family()}}" = "unix" ]; then
         just download-posix
-    elif [ "{{os_family()}}" == "windows" ]; then
+    elif [ "{{os_family()}}" = "windows" ]; then
         just download-windows
     fi
 
