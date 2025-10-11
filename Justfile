@@ -4,7 +4,7 @@ upp_version := "2025.1.1"
 upp_revision := "17810"
 
 umk_exe := if os_family() == "unix" { "3p/umk/umk.out" } else { "3p/umk/umk" }
-build_flags := if os_family() == "unix" { ",SHARED" } else { "" }
+build_flags := if os_family() == "unix" { ",SHARED" } else { ",WIN10" }
 
 default: build
 
