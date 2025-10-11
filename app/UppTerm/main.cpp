@@ -20,7 +20,7 @@ public:
 		Title(m_title_prefix);
 		Icon(UppTermImg::Icon());
 		SetRect(m_terminal.GetStdSize());
-		Sizeable().Zoomable().CenterScreen().Add(m_terminal.SizePos());
+		Sizeable().Zoomable().Add(m_terminal.SizePos());
 		
 		m_terminal.WindowReports();
 		m_terminal.WhenTitle  = [=](String s) { Title(m_title_prefix + " :: " + s); };
@@ -30,8 +30,11 @@ public:
 
 	int Run(const String& cmd)
 	{
-		m_pty.Start(cmd.IsEmpty() ? GetEnv(tshell) : cmd, Environment(), GetHomeDirectory());
-		
+		if (!m_pty.Start(cmd.IsEmpty() ? GetEnv(tshell) : cmd, Environment(), GetHomeDirectory())) {
+			ErrorOK("Failed to start shell process.");
+			return -1;
+		}
+
 		OpenMain();
 		PtyWaitEvent we;
 		we.Add(m_pty, WAIT_READ | WAIT_IS_EXCEPTION);
@@ -40,6 +43,7 @@ public:
 				m_terminal.WriteUtf8(m_pty.Get());
 			ProcessEvents();
 		}
+
 		return m_pty.GetExitCode();
 	}
 

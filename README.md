@@ -10,7 +10,8 @@ UppTerm is a supportive component within the U++ Flatpak distribution. It launch
 ## Building 
 To build this project you do not need to install U++ framework just use following just commands
 ```bash
-just download
+just download-posix   # On Linux, FreeBSD run this command to download required dependencies
+just download-windows # Alternative, but for MS Windows.
 just 
 ```
 
