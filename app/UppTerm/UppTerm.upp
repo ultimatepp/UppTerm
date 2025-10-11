@@ -10,5 +10,6 @@ file
 	main.cpp;
 
 mainconfig
-	"" = "GUI";
+	"" = "GUI",
+	"" = "GUI WIN10";
 
