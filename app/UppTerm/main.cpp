@@ -39,8 +39,8 @@ public:
 		PtyWaitEvent we;
 		we.Add(m_pty, WAIT_READ | WAIT_IS_EXCEPTION);
 		while(IsOpen() && m_pty.IsRunning()) {
-			if(we.Wait(10))
-				m_terminal.WriteUtf8(m_pty.Get());
+			we.Wait(10);
+			m_terminal.WriteUtf8(m_pty.Get());
 			ProcessEvents();
 		}
 
@@ -67,3 +67,4 @@ GUI_APP_MAIN
 
 	SetExitCode(UppTerm().Run(cmd));
 }
+
