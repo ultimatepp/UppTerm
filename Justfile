@@ -3,11 +3,20 @@
 upp_version := "2025.1.1"
 upp_revision := "17810"
 
-umk_exe := if os_family() == "unix" { "umk.out" } else { "umk" }
+umk_exe := if os_family() == "unix" { "3p/umk/umk.out" } else { "3p/umk/umk" }
 build_flags := if os_family() == "unix" { ",SHARED" } else { "" }
 
 default: build
 
+download:
+    #!/usr/bin/env sh
+    if [ "{{os_family()}}" == "unix" ]; then
+        just download-posix
+    elif [ "{{os_family()}}" == "windows" ]; then
+        just download-windows
+    fi
+
+[private]
 download-posix:
     mkdir -p 3p/download
 
@@ -25,6 +34,7 @@ download-posix:
     printf "\nBuilding umk...\n"
     make -j {{num_cpus()}} -C 3p/umk
 
+[private]
 download-windows:
     mkdir -p 3p/download
 
@@ -40,8 +50,14 @@ download-windows:
     7z x 3p/download/umk-win-{{upp_revision}}.7z -o3p
 
 build:
+    #!/usr/bin/env sh
+    if [ ! -f "{{umk_exe}}" ]; then
+        printf "umk not found, please run 'just download' to download all necessary dependencies.\n"
+        exit -1
+    fi
+
     mkdir -p build
-    3p/umk/{{umk_exe}} app/,3p/uppsrc UppTerm 3p/umk/CLANG.bm -brvh +GUI{{build_flags}} build/UppTerm
+    {{umk_exe}} app/,3p/uppsrc UppTerm 3p/umk/CLANG.bm -brvh +GUI{{build_flags}} build/UppTerm
     mv build/UppTerm build/upp-term
 
 run:
