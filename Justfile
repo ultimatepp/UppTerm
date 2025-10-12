@@ -57,7 +57,7 @@ build:
     fi
 
     mkdir -p build
-    {{umk_exe}} app/,3p/uppsrc UppTerm 3p/umk/CLANG.bm -brvh +GUI{{build_flags}} build/UppTerm
+    {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm -brvh +GUI{{build_flags}} build/UppTerm
     mv build/UppTerm build/upp-term
 
 run:
