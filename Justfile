@@ -18,36 +18,36 @@ download:
 
 [private]
 download-posix:
-    mkdir -p 3p/download
+    mkdir -p 3p/downloads
 
     printf "Downloading uppsrc-{{upp_revision}}.tar.gz\n"
-    curl -L --progress-bar -o 3p/download/uppsrc-{{upp_revision}}.tar.gz \
+    curl -L --progress-bar -o 3p/downloads/uppsrc-{{upp_revision}}.tar.gz \
         'https://github.com/ultimatepp/ultimatepp/releases/download/v{{upp_version}}/uppsrc-{{upp_revision}}.tar.gz'
     printf "Downloading umk-posix-{{upp_revision}}.tar.gz\n"
-    curl -L --progress-bar -o 3p/download/umk-posix-{{upp_revision}}.tar.gz \
+    curl -L --progress-bar -o 3p/downloads/umk-posix-{{upp_revision}}.tar.gz \
         'https://github.com/ultimatepp/ultimatepp/releases/download/v{{upp_version}}/umk-posix-{{upp_revision}}.tar.gz'
 
     printf "\nExtracting uppsrc and umk...\n"
-    tar -xf 3p/download/uppsrc-{{upp_revision}}.tar.gz -C 3p
-    tar -xf 3p/download/umk-posix-{{upp_revision}}.tar.gz -C 3p
+    tar -xf 3p/downloads/uppsrc-{{upp_revision}}.tar.gz -C 3p
+    tar -xf 3p/downloads/umk-posix-{{upp_revision}}.tar.gz -C 3p
 
     printf "\nBuilding umk...\n"
     make -j {{num_cpus()}} -C 3p/umk
 
 [private]
 download-windows:
-    mkdir -p 3p/download
+    mkdir -p 3p/downloads
 
     printf "Downloading uppsrc-{{upp_revision}}.tar.gz\n"
-    curl -L --progress-bar -o 3p/download/uppsrc-{{upp_revision}}.tar.gz \
+    curl -L --progress-bar -o 3p/downloads/uppsrc-{{upp_revision}}.tar.gz \
         'https://github.com/ultimatepp/ultimatepp/releases/download/v{{upp_version}}/uppsrc-{{upp_revision}}.tar.gz'
     printf "Downloading umk-win-{{upp_revision}}.7z\n"
-    curl -L --progress-bar -o 3p/download/umk-win-{{upp_revision}}.7z \
+    curl -L --progress-bar -o 3p/downloads/umk-win-{{upp_revision}}.7z \
         'https://github.com/ultimatepp/ultimatepp/releases/download/v{{upp_version}}/umk-win-{{upp_revision}}.7z'
 
     printf "\nExtracting uppsrc and umk...\n"
-    tar -xf 3p/download/uppsrc-{{upp_revision}}.tar.gz -C 3p
-    7z x 3p/download/umk-win-{{upp_revision}}.7z -o3p
+    tar -xf 3p/downloads/uppsrc-{{upp_revision}}.tar.gz -C 3p
+    7z x 3p/downloads/umk-win-{{upp_revision}}.7z -o3p
 
 build:
     #!/usr/bin/env sh
