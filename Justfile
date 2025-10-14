@@ -53,7 +53,7 @@ build:
     #!/usr/bin/env sh
     if [ ! -f "{{umk_exe}}" ]; then
         printf "umk not found, please run 'just download' to download all necessary dependencies.\n"
-        exit -1
+        exit 1
     fi
 
     mkdir -p build
@@ -66,3 +66,4 @@ run:
 clean:
     rm -rf 3p
     rm -rf build
+
