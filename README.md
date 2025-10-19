@@ -1,5 +1,8 @@
 # UppTerm
 
+[![U++ Discord](https://img.shields.io/discord/1046445457951424612)](https://discord.gg/8XzqQzXZzb)
+[![License](https://img.shields.io/badge/License-BSD_2--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
+
 ## Introduction
 UppTerm is simple terminal application written in U++ framework. It is based on [TerminalCtrl](https://github.com/ismail-yilmaz/Terminal) UppHub package written and maintained by [İsmail Yılmaz](https://github.com/ismail-yilmaz/).
 
