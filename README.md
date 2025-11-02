@@ -17,8 +17,8 @@ UppTerm is a supportive component within the U++ Flatpak distribution. It launch
 #### Windows
 
 For a smooth development experience on Windows, you'll need to install the following essential software:
-- 7-Zip: For file compression and decompression.
-- Git for Windows: This package is crucial for version control and includes Git Bash, which is the required terminal environment for all build commands.
+- 7-Zip - For file compression and decompression.
+- Git for Windows - This package is crucial for version control and includes Git Bash, which is the required terminal environment for all build commands.
 
 All build and compilation commands must be executed within the included Git Bash terminal. Do not use Command Prompt or PowerShell.
 
