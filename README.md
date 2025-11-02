@@ -12,6 +12,22 @@ UppTerm is a supportive component within the U++ Flatpak distribution. It launch
 
 ## Developing using command line
 
+### Requirements
+
+#### Windows
+
+For a smooth development experience on Windows, you'll need to install the following essential software:
+- 7-Zip: For file compression and decompression.
+- Git for Windows: This package is crucial for version control and includes Git Bash, which is the required terminal environment for all build commands.
+
+All build and compilation commands must be executed within the included Git Bash terminal. Do not use Command Prompt or PowerShell.
+
+For convenient installation of third part software, we highly recommend using a package manager like Winget or Chocolatey.
+
+#### POSIX
+
+The first step in command-line building is to install all prerequisites and dependencies required to compile TheIDE.
+
 ### Building 
 To build this project you do not need to install U++ framework just use following just commands
 ```bash
