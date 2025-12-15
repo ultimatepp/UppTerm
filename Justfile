@@ -17,6 +17,7 @@ download:
         just download-windows
     fi
 
+    printf "\nDownloading dependencies from UppHub...\n"
     {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm --hub-dir {{upp_hub_dir}} --hub-only -U
 
 [private]
