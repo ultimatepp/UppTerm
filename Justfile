@@ -4,6 +4,7 @@ upp_version := "2025.1.1"
 upp_revision := "17810"
 
 umk_exe := if os_family() == "unix" { "3p/umk/umk.out" } else { "3p/umk/umk" }
+upp_hub_dir := "3p/hub"
 build_flags := if os_family() == "unix" { ",SHARED" } else if os_family() == "windows" { ",WIN10" } else { "" }
 
 default: build
@@ -15,6 +16,8 @@ download:
     elif [ "{{os_family()}}" = "windows" ]; then
         just download-windows
     fi
+
+    {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm --hub-dir {{upp_hub_dir}} --hub-only -U
 
 [private]
 download-posix:
@@ -57,7 +60,7 @@ build:
     fi
 
     mkdir -p build
-    {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm -brvh +GUI{{build_flags}} build/UppTerm
+    {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm --hub-dir {{upp_hub_dir}} -brv +GUI{{build_flags}} build/UppTerm
     mv build/UppTerm build/upp-term
 
 run:
