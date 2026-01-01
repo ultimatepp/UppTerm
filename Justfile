@@ -80,9 +80,10 @@ run:
     #!/usr/bin/env sh
     if [ "{{os()}}" = "macos" ]; then
         open build/upp-term.app
-    else
-        ./build/upp-term
+        exit 0
     fi
+    
+    ./build/upp-term
 
 clean:
     rm -rf 3p
