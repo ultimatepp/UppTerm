@@ -3,7 +3,8 @@
 upp_version := "2025.1.1"
 upp_revision := "17810"
 
-umk_exe := if os_family() == "unix" { "3p/umk/umk.out" } else { "3p/umk/umk" }
+# TODO: Unify umk executable on all platforms
+umk_exe := if os() == "macos" { "3p/umk/umk" } else if os_family() == "unix" { "3p/umk/umk.out" } else { "3p/umk/umk" }
 upp_hub_dir := "3p/hub"
 build_flags := if os_family() == "unix" { ",SHARED" } else if os_family() == "windows" { ",WIN10" } else { "" }
 
@@ -11,7 +12,10 @@ default: build
 
 download:
     #!/usr/bin/env sh
-    if [ "{{os_family()}}" = "unix" ]; then
+    mkdir -p 3p/downloads
+    if [ "{{os()}}" = "macos" ]; then
+        just download-macos
+    elif [ "{{os_family()}}" = "unix" ]; then
         just download-posix
     elif [ "{{os_family()}}" = "windows" ]; then
         just download-windows
@@ -21,9 +25,20 @@ download:
     {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm --hub-dir {{upp_hub_dir}} --hub-only -U
 
 [private]
-download-posix:
-    mkdir -p 3p/downloads
+download-macos:
+    printf "Downloading uppsrc-{{upp_revision}}.tar.gz\n"
+    curl -L --progress-bar -o 3p/downloads/uppsrc-{{upp_revision}}.tar.gz \
+        'https://github.com/ultimatepp/ultimatepp/releases/download/v{{upp_version}}/uppsrc-{{upp_revision}}.tar.gz'
+    printf "Downloading umk-macos-{{upp_revision}}.tar.gz\n"
+    curl -L --progress-bar -o 3p/downloads/umk-macos-{{upp_revision}}.tar.gz \
+        'https://github.com/ultimatepp/ultimatepp/releases/download/v{{upp_version}}/umk-macos-{{upp_revision}}.tar.gz'
 
+    printf "\nExtracting uppsrc and umk...\n"
+    tar -xf 3p/downloads/uppsrc-{{upp_revision}}.tar.gz -C 3p
+    tar -xf 3p/downloads/umk-macos-{{upp_revision}}.tar.gz -C 3p
+
+[private]
+download-posix:
     printf "Downloading uppsrc-{{upp_revision}}.tar.gz\n"
     curl -L --progress-bar -o 3p/downloads/uppsrc-{{upp_revision}}.tar.gz \
         'https://github.com/ultimatepp/ultimatepp/releases/download/v{{upp_version}}/uppsrc-{{upp_revision}}.tar.gz'
@@ -40,8 +55,6 @@ download-posix:
 
 [private]
 download-windows:
-    mkdir -p 3p/downloads
-
     printf "Downloading uppsrc-{{upp_revision}}.tar.gz\n"
     curl -L --progress-bar -o 3p/downloads/uppsrc-{{upp_revision}}.tar.gz \
         'https://github.com/ultimatepp/ultimatepp/releases/download/v{{upp_version}}/uppsrc-{{upp_revision}}.tar.gz'
@@ -61,11 +74,15 @@ build:
     fi
 
     mkdir -p build
-    {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm --hub-dir {{upp_hub_dir}} -brv +GUI{{build_flags}} build/UppTerm
-    mv build/UppTerm build/upp-term
+    {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm --hub-dir {{upp_hub_dir}} -br +GUI{{build_flags}} build/upp-term
 
 run:
-    build/upp-term
+    #!/usr/bin/env sh
+    if [ "{{os()}}" = "macos" ]; then
+        open build/upp-term.app
+    else
+        ./build/upp-term
+    fi
 
 clean:
     rm -rf 3p
