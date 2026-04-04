@@ -1,11 +1,13 @@
 #!/usr/bin/env -S just --justfile
 
-upp_version := "2025.1.1"
-upp_revision := "17810"
+upp_version := "2026.1"
+upp_revision := "18468"
 
 # TODO: Unify umk executable on all platforms
 umk_exe := if os() == "macos" { "3p/umk/umk" } else if os_family() == "unix" { "3p/umk/umk.out" } else { "3p/umk/umk" }
 upp_hub_dir := "3p/hub"
+build_dir := "build"
+build_cache_dir := "build/cache"
 build_flags := if os_family() == "unix" { ",SHARED" } else if os_family() == "windows" { ",WIN10" } else { "" }
 
 default: build
@@ -74,7 +76,10 @@ build:
     fi
 
     mkdir -p build
-    {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm --hub-dir {{upp_hub_dir}} -br +GUI{{build_flags}} build/upp-term
+    {{umk_exe}} ./,3p/uppsrc UppTerm 3p/umk/CLANG.bm \
+        --hub-dir {{upp_hub_dir}} \
+        --out-dir {{build_cache_dir}} \
+        -br +GUI{{build_flags}} {{build_dir}}/upp-term
 
 run:
     #!/usr/bin/env sh
@@ -88,3 +93,4 @@ run:
 clean:
     rm -rf 3p
     rm -rf build
+
